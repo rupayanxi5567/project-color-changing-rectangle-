@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Project-1</title>
+
+<style>
+
+*{
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+html, body{
+    height: 100%;
+
+    background-color: grey;
+
+    width: 100%;
+}
+
+
+#center{
+
+    position: absolute;
+
+    top: 50%;
+
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+    width: 400px;
+
+    height: 200px;
+
+    border: 1px solid white;
+}
+
+
+
+</style>
+
+
+
+
+</head>
+<body>
+
+
+<div id="center"></div>
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+
+let rectangle = document.getElementById("center")
+
+rectangle.addEventListener( "mousemove", (dets) => {
+    let rectLocation = rectangle.getBoundingClientRect() ;
+
+    let insideRect = dets.x - rectLocation.left 
+
+    
+    if (insideRect < rectLocation.width / 2) {
+
+    let redCol = gsap.utils.mapRange(
+
+        0,
+        rectLocation.width / 2 ,
+        255,
+        0,
+        insideRect
+
+        )
+
+        gsap.to( rectangle, {
+
+            backgroundColor: ` rgb( ${redCol} ,0,0 ) ` ,
+
+            ease: Power4,
+
+
+        } )
+
+    }
+
+    else if (insideRect > rectLocation.width / 2) {
+
+        let blueCol = gsap.utils.mapRange(
+
+400,
+rectLocation.width / 2 ,
+255,
+0,
+insideRect
+
+)
+
+gsap.to( rectangle, {
+
+    backgroundColor: ` rgb( 0,  0, ${blueCol} ) ` ,
+
+    ease: Power4,
+
+
+} )
+
+}
+
+} )
+
+
+rectangle.addEventListener( "mouseleave", () => {
+    gsap.to ( rectangle, {
+        backgroundColor: "white"
+    } )
+} )
+
+
+
+// ( min inp, max inp, min out, max out, value to map )
+
+
+
+
+
+    </script>
+   
+</body>
+</html>
